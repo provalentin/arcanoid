@@ -58,13 +58,20 @@ public class GameScreen implements Screen{
     public void render(float delta) {
         Gdx.gl.glClearColor(1, 1, 1, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        circle.setPosition(gamePole.myCircle.x - gamePole.myCircle.radius, gamePole.myCircle.y - gamePole.myCircle.radius);
+
         player.setPosition(gamePole.player.x, gamePole.player.y);
 
         batch.begin();
         backgroud.draw(batch);
         player.draw(batch);
-        circle.draw(batch);
+
+        for (int i = 0; i < gamePole.circles.size(); i++) {
+            if(gamePole.circles.size() == 1 || (!gamePole.circles.get(i).isStand)) {
+                circle.setPosition(gamePole.circles.get(i).x - gamePole.circles.get(i).radius, gamePole.circles.get(i).y - gamePole.circles.get(i).radius);
+                circle.draw(batch);
+            }
+        }
+
         for (int i = 0; i < gamePole.player.life; i++) {
             heart.setPosition(gamePole.screenWidth - gamePole.player.life * (heart.getHeight() * 1.5f) + heart.getHeight() * 1.5f * i,gamePole.player.y / 2 - heart.getHeight() / 2);
             heart.draw(batch);

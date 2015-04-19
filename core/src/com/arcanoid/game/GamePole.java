@@ -6,6 +6,8 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 
+import java.util.ArrayList;
+
 /**
  * Created by hh on 17.04.2015.
  */
@@ -13,6 +15,8 @@ public class GamePole {
     Block blocks[][];
 
     MyCircle myCircle;
+    ArrayList<MyCircle> circles;
+
     Player player;
 
     final int screenHeight = Gdx.graphics.getHeight();
@@ -25,16 +29,37 @@ public class GamePole {
     int playerVel = 0;
     private int W, H;
 
+    boolean isAllCircleStand(){
+        for (int i = 0; i < circles.size(); i++)
+            if(!circles.get(i).isStand) return false;
+        return true;
+    }
+
+    int numberOfStandCircle(){
+        int sum = 0;
+        for (int i = 0; i < circles.size(); i++)
+            if(circles.get(i).isStand) sum++;
+        return sum;
+    }
     public void move(float delta){
         player.x += playerVel * (screenWidth / (3 * 60));
         if(player.x < 0) player.x = 0;
         if(player.x > screenWidth - player.width) player.x = screenWidth - player.width;
 
-        if(myCircle.isStand){
-            myCircle.x = player.x + player.width / 2;
-            myCircle.y = player.y + player.height + myCircle.radius;
-        }else
-            myCircle.move(this);
+
+        if(isAllCircleStand()){
+            circles.get(0).x = player.x + player.width / 2;
+            circles.get(0).y = player.y + player.height + circles.get(0).radius;
+            while(circles.size() > 1)
+                circles.remove(circles.size() - 1);
+
+        }else {
+            for (int i = 0; i < circles.size(); i++) {
+                circles.get(i).move(this);
+
+            }
+
+        }
     }
 
 
@@ -53,6 +78,9 @@ public class GamePole {
         player = new Player(screenWidth / 2 - playerWidth / 2, screenHeight / 8, playerWidth, playerHeight);
 
         myCircle = new MyCircle(player.x + player.width / 2 - circleRadius, player.y + player.height + circleRadius, circleRadius, new Vector2(0,0));
+
+        circles = new ArrayList<MyCircle>();
+        circles.add(new MyCircle(player.x + player.width / 2 - circleRadius, player.y + player.height + circleRadius, circleRadius, new Vector2(0,0)));
     }
 
     public void setBrickieSize(Sprite[] brick){
@@ -82,5 +110,6 @@ public class GamePole {
     public int getH() {
         return H;
     }
+
 }
 

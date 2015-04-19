@@ -48,9 +48,9 @@ public class InputListener implements InputProcessor{
     @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
         gamePole.playerVel = 0;
-        if(gamePole.myCircle.isStand){
-            gamePole.myCircle.setVel(10, 7);
-            gamePole.myCircle.isStand = false;
+        if(gamePole.circles.get(0).isStand && gamePole.circles.size() == 1){
+            gamePole.circles.get(0).setVel(10, 7);
+            gamePole.circles.get(0).isStand = false;
         }
         return true;
     }

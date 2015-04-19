@@ -28,10 +28,11 @@ public class MyCircle extends Circle {
             }
 
             if(y < radius){
-                //y = radius;
-                //velocity.y = -velocity.y;
-                gamePole.player.life--;
-                gamePole.myCircle.isStand = true;
+                if(gamePole.numberOfStandCircle() == 1) {
+                    gamePole.player.life--;
+
+                }
+                this.isStand = true;
             }
 
             if(x + radius > gamePole.screenWidth){
@@ -44,10 +45,10 @@ public class MyCircle extends Circle {
                 y = gamePole.screenHeight - radius;
             }
 
-            if(!setReactionOnRect(gamePole.player, gamePole.myCircle)){
+            if(!setReactionOnRect(gamePole.player, this)){
                 for (int i = 0; i < gamePole.getW(); i++) {
                     for (int j = 0; j < gamePole.getH(); j++) {
-                        if(gamePole.blocks[i][j].getPower() != 0 && setReactionOnRect(gamePole.blocks[i][j], gamePole.myCircle)){
+                        if(gamePole.blocks[i][j].getPower() != 0 && setReactionOnRect(gamePole.blocks[i][j], this)){
                             gamePole.blocks[i][j].decPow();
                             break;
                         }
