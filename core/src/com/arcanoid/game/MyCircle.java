@@ -11,7 +11,8 @@ import com.badlogic.gdx.math.Vector2;
 public class MyCircle extends Circle {
 
     Vector2 velocity;
-    boolean isStand = true;
+    //boolean isStand = true;
+    boolean isFlying = false;
 
     public MyCircle(float x, float y, float radius, Vector2 velocity) {
         super(x, y, radius);
@@ -19,7 +20,7 @@ public class MyCircle extends Circle {
     }
 
     public void move(GamePole gamePole){
-        if(!isStand) {
+        if(isFlying) {
             x += velocity.x;
             y += velocity.y;
             if(x < radius){
@@ -28,11 +29,10 @@ public class MyCircle extends Circle {
             }
 
             if(y < radius){
-                if(gamePole.numberOfStandCircle() == 1) {
+                if(gamePole.sumOfFlyingBalls() == 1){
                     gamePole.player.life--;
-
                 }
-                this.isStand = true;
+                isFlying = false;
             }
 
             if(x + radius > gamePole.screenWidth){

@@ -64,7 +64,7 @@ public class GameScreen implements Screen{
         player.draw(batch);
 
         for (int i = 0; i < gamePole.circles.size(); i++) {
-            if(gamePole.circles.size() == 1 || (!gamePole.circles.get(i).isStand)) {
+            if(gamePole.circles.size() == 1 || (gamePole.circles.get(i).isFlying)) {
                 circle.setPosition(gamePole.circles.get(i).x - gamePole.circles.get(i).radius, gamePole.circles.get(i).y - gamePole.circles.get(i).radius);
                 circle.draw(batch);
             }

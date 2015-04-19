@@ -30,16 +30,13 @@ public class GamePole {
     int playerVel = 0;
     private int W, H;
 
-    boolean isAllCircleStand(){
-        for (int i = 0; i < circles.size(); i++)
-            if(!circles.get(i).isStand) return false;
-        return true;
-    }
 
-    int numberOfStandCircle(){
+    int sumOfFlyingBalls(){
         int sum = 0;
-        for (int i = 0; i < circles.size(); i++)
-            if(circles.get(i).isStand) sum++;
+        for (int i = 0; i < circles.size(); i++) {
+            if(circles.get(i).isFlying) sum++;
+        }
+
         return sum;
     }
     public void move(float delta){
@@ -48,18 +45,24 @@ public class GamePole {
         if(player.x > screenWidth - player.width) player.x = screenWidth - player.width;
 
 
-        if(isAllCircleStand()){
+        if(sumOfFlyingBalls() == 1){
+            for (int i = 0; i < circles.size(); i++) {
+                if(circles.get(i).isFlying){
+                    circles.set(0, circles.get(i));
+                    break;
+                }
+            }
+            for (int i = 1; i < circles.size(); i++) {
+                circles.remove(1);
+            }
+
             circles.get(0).x = player.x + player.width / 2;
             circles.get(0).y = player.y + player.height + circles.get(0).radius;
-            while(circles.size() > 1)
-                circles.remove(circles.size() - 1);
 
         }else {
             for (int i = 0; i < circles.size(); i++) {
                 circles.get(i).move(this);
-
             }
-
         }
     }
 
