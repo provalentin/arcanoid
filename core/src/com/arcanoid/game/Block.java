@@ -21,4 +21,8 @@ public class Block extends Rectangle{
     public void decPow(){
         power--;
     }
+
+    public void setPower(int power) {
+        this.power = power;
+    }
 }

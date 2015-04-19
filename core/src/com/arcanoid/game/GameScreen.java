@@ -19,12 +19,12 @@ public class GameScreen implements Screen{
     ShapeRenderer shapeRenderer;
     SpriteBatch batch;
 
-    Sprite circle, player, brickie, heart, backgroud;
+    Sprite circle, player, heart, backgroud;
 
     Sprite brickies[];
     @Override
     public void show() {
-        gamePole = new GamePole(10, 5);
+        gamePole = new GamePole(2);
         shapeRenderer = new ShapeRenderer();
         batch = new SpriteBatch();
         circle = new Sprite(new Texture("ball.png"));
@@ -32,7 +32,6 @@ public class GameScreen implements Screen{
         player = new Sprite(new Texture("player.png"));
         player.setSize(gamePole.player.width, gamePole.player.height);
 
-        brickie = new Sprite(new Texture("bricks/1.png"));
 
         brickies = new Sprite[4];
         for (int i = 0; i < 4; i++) {
@@ -50,7 +49,6 @@ public class GameScreen implements Screen{
         backgroud.setPosition(0, 0);
 
         Gdx.input.setInputProcessor(new InputListener(gamePole));
-        //Gdx.input.setInputProcessor(new GestureDetector(new TEst(gamePole)));
 
     }
 

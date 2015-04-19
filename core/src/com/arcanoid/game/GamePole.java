@@ -2,6 +2,7 @@ package com.arcanoid.game;
 
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
@@ -62,6 +63,41 @@ public class GamePole {
         }
     }
 
+    GamePole(int level){
+        FileHandle file = Gdx.files.internal("levels/" + String.valueOf(level) + ".level");
+        String l = file.readString();
+        String Stroke[] = l.split("\r\n");
+        int W = Stroke[0].split(" ").length;
+        int H = Stroke.length;
+        blocks = new Block[W][H];
+        this.W = W;
+        this.H = H;
+        blockWidth = screenWidth / W;
+        blockHeight = 9 * blockWidth / 16;
+
+        for (int i = 0; i < W; i++) {
+            for (int j = 0; j < H; j++) {
+                blocks[i][j] = new Block(i * blockWidth, screenHeight - j * blockHeight - blockHeight, blockWidth, blockHeight, 0);
+            }
+        }
+        for (int i = 0; i < Stroke.length; i++) {
+            String values[] = Stroke[i].split(" ");
+            for (int j = 0; j < values.length; j++) {
+                if(values[j].equals("1")) blocks[j][i].setPower(1);
+                if(values[j].equals("2")) blocks[j][i].setPower(2);
+                if(values[j].equals("3")) blocks[j][i].setPower(3);
+
+            }
+        }
+
+
+        player = new Player(screenWidth / 2 - playerWidth / 2, screenHeight / 8, playerWidth, playerHeight);
+
+        myCircle = new MyCircle(player.x + player.width / 2 - circleRadius, player.y + player.height + circleRadius, circleRadius, new Vector2(0,0));
+
+        circles = new ArrayList<MyCircle>();
+        circles.add(new MyCircle(player.x + player.width / 2 - circleRadius, player.y + player.height + circleRadius, circleRadius, new Vector2(0,0)));
+    }
 
     GamePole(int W, int H){
         blocks = new Block[W][H];
@@ -72,7 +108,7 @@ public class GamePole {
         blockHeight = 9 * blockWidth / 16;
         for (int i = 0; i < W; i++) {
             for (int j = 0; j < H; j++) {
-                blocks[i][j] = new Block(i * blockWidth, screenHeight - j * blockHeight - blockHeight, blockWidth, blockHeight, 3);
+                blocks[i][j] = new Block(i * blockWidth, screenHeight - j * blockHeight - blockHeight, blockWidth, blockHeight, 0);
             }
         }
         player = new Player(screenWidth / 2 - playerWidth / 2, screenHeight / 8, playerWidth, playerHeight);
