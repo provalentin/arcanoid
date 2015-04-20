@@ -49,7 +49,7 @@ public class MyCircle extends Circle {
                 for (int i = 0; i < gamePole.getW(); i++) {
                     for (int j = 0; j < gamePole.getH(); j++) {
                         if(gamePole.blocks[i][j].getPower() != 0 && setReactionOnRect(gamePole.blocks[i][j], this)){
-                            gamePole.blocks[i][j].decPow();
+                            gamePole.blocks[i][j].intersectListener(gamePole);
                             break;
                         }
                     }

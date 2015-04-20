@@ -45,7 +45,7 @@ public class GamePole {
         if(player.x > screenWidth - player.width) player.x = screenWidth - player.width;
 
 
-        if(sumOfFlyingBalls() == 1){
+        if(sumOfFlyingBalls() == 0){
             for (int i = 0; i < circles.size(); i++) {
                 if(circles.get(i).isFlying){
                     circles.set(0, circles.get(i));
@@ -59,7 +59,7 @@ public class GamePole {
             circles.get(0).x = player.x + player.width / 2;
             circles.get(0).y = player.y + player.height + circles.get(0).radius;
 
-        }else {
+        }else{
             for (int i = 0; i < circles.size(); i++) {
                 circles.get(i).move(this);
             }
@@ -86,10 +86,10 @@ public class GamePole {
         for (int i = 0; i < Stroke.length; i++) {
             String values[] = Stroke[i].split(" ");
             for (int j = 0; j < values.length; j++) {
-                if(values[j].equals("1")) blocks[j][i].setPower(1);
-                if(values[j].equals("2")) blocks[j][i].setPower(2);
-                if(values[j].equals("3")) blocks[j][i].setPower(3);
-
+                if(values[j].equals("1")) blocks[j][i].setType(Block.Type.simple, 1);
+                if(values[j].equals("2")) blocks[j][i].setType(Block.Type.simple, 2);
+                if(values[j].equals("3")) blocks[j][i].setType(Block.Type.simple, 3);
+                if(values[j].equals("4")) blocks[j][i].setType(Block.Type.new_balls, 1);
             }
         }
 
