@@ -7,6 +7,7 @@ import com.badlogic.gdx.math.Vector2;
  * Created by hh on 17.04.2015.
  */
 public class Block extends Rectangle{
+    //hui
 
     private int power;
 
