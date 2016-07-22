@@ -37,11 +37,12 @@ public class InputListener implements InputProcessor{
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
 
         if(screenX < gamePole.screenWidth / 2){
-            gamePole.playerVel = -1;
+            gamePole.playerVel = 0;
 
         }else{
-            gamePole.playerVel = 1;
+            gamePole.playerVel = 0;
         }
+        gamePole.player.x = screenX;
         return true;
     }
 
@@ -58,11 +59,12 @@ public class InputListener implements InputProcessor{
     @Override
     public boolean touchDragged(int screenX, int screenY, int pointer) {
         if(screenX < gamePole.screenWidth / 2){
-            gamePole.playerVel = -1;
+            gamePole.playerVel = 0;
 
         }else{
-            gamePole.playerVel = 1;
+            gamePole.playerVel = 0;
         }
+        gamePole.player.x = screenX;
         return true;
     }
 
